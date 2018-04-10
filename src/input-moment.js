@@ -3,11 +3,15 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import Calendar from './calendar';
 import Time from './time';
+import { autobind } from 'core-decorators';
 
+import style from "./less/input-moment.less";
+
+@autobind
 export default class InputMoment extends Component {
   static defaultProps = {
-    prevMonthIcon: 'ion-ios-arrow-left',
-    nextMonthIcon: 'ion-ios-arrow-right',
+    prevMonthIcon: 'fa fa-angle-left',
+    nextMonthIcon: 'fa fa-angle-right',
     minStep: 1,
     hourStep: 1
   };
@@ -25,6 +29,10 @@ export default class InputMoment extends Component {
     e.preventDefault();
     if (this.props.onSave) this.props.onSave();
   };
+
+  handleOnChange(m) {
+    this.props.onChange && this.props.onChange(m);
+  }
 
   render() {
     const { tab } = this.state;
@@ -63,7 +71,7 @@ export default class InputMoment extends Component {
           <Calendar
             className={cx('tab', { 'is-active': tab === 0 })}
             moment={m}
-            onChange={this.props.onChange}
+            onChange={this.handleOnChange}
             prevMonthIcon={this.props.prevMonthIcon}
             nextMonthIcon={this.props.nextMonthIcon}
           />
@@ -72,7 +80,7 @@ export default class InputMoment extends Component {
             moment={m}
             minStep={this.props.minStep}
             hourStep={this.props.hourStep}
-            onChange={this.props.onChange}
+            onChange={this.handleOnChange}
           />
         </div>
 

@@ -32,3 +32,5 @@ example/bundle*
 
 dist
 lib
+
+package-*
